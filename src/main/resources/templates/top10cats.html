@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Top10Cats</title>
+</head>
+<body>
+    <form th:action="@{/(order=${order})}">
+        <p align="center"><button type="submit">Заново</button></p>
+        <h3 align="center">Топ 10 самых мимимишных котиков</h3>
+    </form>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <body>
+        <tr th:each="cats : ${top10Cats}">
+            <td ><img th:src="'pictures/' + ${cats.picture}" width="120" height="100"></td>
+            <td th:text="${cats.getName()}"></td>
+            <td th:text="${cats.getPopularity()}"></td>
+        </tr>
+        </body>
+    </table>
+</body>
+</html>

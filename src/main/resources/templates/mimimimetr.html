@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mimimimetr</title>
+    <link rel="stylesheet" href="style.css" th:href="@{style.css}"/>
+</head>
+<body>
+<header id="1">
+    <h3 align="center">Mimimimetr</h3>
+    <h5 align="centre">Выберите самого мимимишного котика</h5>
+</header>
+    <div id="2">
+        <a th:href="@{/(queue=${queue}, chosenCatId=${cat1.getId()}, order=${order})}" ><img  th:src="'pictures/' + ${cat1.picture}" width="120" height="100"></a>
+        <a th:href="@{/(queue=${queue}, chosenCatId=${cat2.getId()}, order=${order})}"><img  th:src="'pictures/' + ${cat2.picture}" width="120" height="100"></a>
+    </div>
+    <div id="3">
+        &nbsp
+        &nbsp
+        &nbsp
+        <a th:href="@{/(queue=${queue}, chosenCatId=${cat1.getId()}, order=${order})}" th:text="${cat1.name}"></a>
+        &nbsp
+        &nbsp
+        &nbsp
+        &nbsp
+        &nbsp
+        &nbsp
+        &nbsp
+        &nbsp
+        &nbsp
+        &nbsp
+        &nbsp
+        &nbsp
+        <a th:href="@{/(queue=${queue}, chosenCatId=${cat2.getId()}, order=${order})}"  th:text="${cat2.name}"></a>
+    </div>
+</body>
+</html>
