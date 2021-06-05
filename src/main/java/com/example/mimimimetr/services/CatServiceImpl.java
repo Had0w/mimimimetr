@@ -4,7 +4,6 @@ import com.example.mimimimetr.entities.Cat;
 import com.example.mimimimetr.repositories.CatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service

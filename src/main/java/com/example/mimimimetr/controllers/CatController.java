@@ -2,23 +2,19 @@ package com.example.mimimimetr.controllers;
 
 import com.example.mimimimetr.entities.Cat;
 import com.example.mimimimetr.services.CatServiceImpl;
-import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class CatController {
     private CatServiceImpl catService;
+    //очередность котов
+    private static int queue = 0;
 
     @Autowired
     public void setCatService(CatServiceImpl catService) {
@@ -26,49 +22,49 @@ public class CatController {
     }
 
     @GetMapping
-    public String getCats(Model model, @RequestParam(value = "queue", required = false) Integer queue,
-                          @RequestParam(value = "chosenCatId", required = false) Long chosenCatId,
-                            @RequestParam(value = "order", required = false) List<Byte> order){
-
-        //выбранный в прошлой иттерации кот увеличивает свою популярность
-        if(chosenCatId != null) {
-            Cat chosenCat = catService.findCatById(chosenCatId);
-            chosenCat.setPopularity(chosenCat.getPopularity() + 1);
-            catService.saveCat(chosenCat);
-        }
+    public String getCats(Model model) {
 
         List<Cat> cats = catService.findByQueue();
-        if (queue == null) {
-            queue = 0;      // это очередность пар котов, каждый раз будет увеличиваться на 2
-        }
+
         if (queue >= cats.size() - 1) {
-            return to10Cats(model);  //если все коты показаны, то уходим на страницу финиша
+            return to10Cats(model);  //если все коты показаны, то уходим на страницу финиш
         }
 
         Cat cat1 = cats.get(queue);
-        Cat cat2 = cats.get(queue + 1);
-        queue += 2;
+        Cat cat2 = cats.get(++queue);
+        queue += 1;
         model.addAttribute("cat1", cat1);
         model.addAttribute("cat2", cat2);
-        model.addAttribute("queue", queue);
-        model.addAttribute("order", order);
         return "mimimimetr";
+    }
+
+    @PostMapping
+    public String putCat(Model model, @RequestBody String catInfo) {
+        System.out.println(catInfo);
+        String[] strings = catInfo.split("=");
+        if(strings[1] != null) {  //выбранный в прошлой иттерации кот увеличивает свою популярность
+            Cat cat = catService.findCatById(Long.parseLong(strings[1]));
+            cat.setPopularity(cat.getPopularity() + 1);
+            catService.saveCat(cat);
+        }
+        return getCats(model);
     }
 
     @GetMapping("top10cats")
     public String to10Cats(Model model) {
         List<Cat> top10Cats = catService.getTop10();
-        List<Byte> queue = new ArrayList<>();
+        List<Byte> order = new ArrayList<>();
         for (byte i = 0; i < 10; i++) {
-            queue.add(i);
+            order.add(i);
         }
-        Collections.shuffle(queue);
+        Collections.shuffle(order);
 
-        for (int i = 0; i < queue.size(); i++) {
+        for (int i = 0; i < order.size(); i++) {
             Cat cat = top10Cats.get(i);
-            cat.setQueue(queue.get(i));
+            cat.setQueue(order.get(i));
             catService.saveCat(cat);
         }
+        queue = 0;
         model.addAttribute("top10Cats", top10Cats);
         return "top10cats";
     }

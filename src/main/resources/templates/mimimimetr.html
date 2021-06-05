@@ -12,27 +12,25 @@
     <h5 align="centre">Выберите самого мимимишного котика</h5>
 </header>
     <div id="2">
-        <a th:href="@{/(queue=${queue}, chosenCatId=${cat1.getId()}, order=${order})}" ><img  th:src="'pictures/' + ${cat1.picture}" width="120" height="100"></a>
-        <a th:href="@{/(queue=${queue}, chosenCatId=${cat2.getId()}, order=${order})}"><img  th:src="'pictures/' + ${cat2.picture}" width="120" height="100"></a>
-    </div>
-    <div id="3">
-        &nbsp
-        &nbsp
-        &nbsp
-        <a th:href="@{/(queue=${queue}, chosenCatId=${cat1.getId()}, order=${order})}" th:text="${cat1.name}"></a>
-        &nbsp
-        &nbsp
-        &nbsp
-        &nbsp
-        &nbsp
-        &nbsp
-        &nbsp
-        &nbsp
-        &nbsp
-        &nbsp
-        &nbsp
-        &nbsp
-        <a th:href="@{/(queue=${queue}, chosenCatId=${cat2.getId()}, order=${order})}"  th:text="${cat2.name}"></a>
-    </div>
+        <form method="post">
+<!--            <input th:type="image" th:name="catInfo" th:value="*{cat1.id}" th:src="'pictures/' + ${cat1.picture}"-->
+<!--                   width="120" height="100" th:alt="${cat1.name}" th:title="${cat1.name}">-->
+<!--            <input th:type="image" th:name="catInfo" th:value="*{cat2.id}" th:src="'pictures/' + ${cat2.picture}"-->
+<!--                   width="120" height="100" th:alt="${cat2.name}" th:title="${cat2.name}">-->
+            <button th:type="text" th:name="catInfo" th:value="${cat1.id}">
+                <img th:src="'pictures/' + ${cat1.picture}" th:value="*{cat1.id}" width="120" height="100">
+            </button>
+            <button th:type="text" th:name="catInfo" th:value="${cat2.id}">
+                <img th:src="'pictures/' + ${cat2.picture}" th:value="*{cat2.id}" width="120" height="100">
+            </button>
+<!--            <button th:type="text" th:name="catInfo" th:value="${queue}">очеред</button>-->
+        </form>
+<!--        <form  method="POST" th:action="@{/mimimimetr/(cat=${cat1})/(queue=${queue})}">-->
+<!--            <input th:type="image"  th:src="'pictures/' + ${cat1.picture}" width="120" height="100" th:alt="${cat1.name}" th:title="${cat1.name}">-->
+<!--        </form>-->
+<!--        <form method="POST"  th:action="@{/mimimimetr/(cat=${cat2})/(queue=${queue})}">-->
+<!--            <input th:type="image" th:src="'pictures/' + ${cat2.picture}" width="120" height="100" th:alt="${cat2.name}" th:title="${cat2.name}">-->
+<!--        </form>-->
+        </div>
 </body>
 </html>

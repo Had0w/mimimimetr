@@ -1,7 +1,6 @@
 package com.example.mimimimetr.services;
 
 import com.example.mimimimetr.entities.Cat;
-
 import java.util.List;
 
 public interface CatService {
