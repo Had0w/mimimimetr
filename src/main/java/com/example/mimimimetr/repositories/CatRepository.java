@@ -12,6 +12,8 @@ public interface CatRepository extends JpaRepository<Cat, Long> {
     @Query(value = "SELECT cat FROM Cat cat ORDER BY cat.popularity DESC")
     List<Cat> findByOrderByPopularityDesc();
 
-    @Query("SELECT cat FROM Cat cat ORDER BY cat.queue")
-    List<Cat> findByOrderByDirection();
+    @Query(value = "SELECT cat FROM Cat cat ORDER BY cat.id")
+    List<Cat> findAllOrderById();
+
+    Cat getById(long id);
 }

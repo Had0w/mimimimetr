@@ -37,7 +37,12 @@ public class CatServiceImpl implements CatService{
     }
 
     @Override
-    public List<Cat> findByQueue() {
-        return catRepository.findByOrderByDirection();
+    public List<Cat> findAllOrderById() {
+        return catRepository.findAllOrderById();
+    }
+
+    @Override
+    public Cat getCatById(long id) {
+        return catRepository.findById(id).get();
     }
 }

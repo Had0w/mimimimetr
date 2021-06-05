@@ -12,5 +12,7 @@ public interface CatService {
 
     void saveCat(Cat cat);
 
-    List<Cat> findByQueue();
+    List<Cat> findAllOrderById();
+
+    Cat getCatById(long id);
 }

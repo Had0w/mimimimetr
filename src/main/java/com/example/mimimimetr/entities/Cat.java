@@ -20,6 +20,4 @@ public class Cat {
     String picture;
     @Column(name = "popularity")
     int popularity;
-    @Column(name = "queue")
-    int queue;
 }

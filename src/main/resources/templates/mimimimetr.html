@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Mimimimetr</title>
@@ -9,28 +11,24 @@
 <body>
 <header id="1">
     <h3 align="center">Mimimimetr</h3>
-    <h5 align="centre">Выберите самого мимимишного котика</h5>
+
 </header>
     <div id="2">
-        <form method="post">
-<!--            <input th:type="image" th:name="catInfo" th:value="*{cat1.id}" th:src="'pictures/' + ${cat1.picture}"-->
-<!--                   width="120" height="100" th:alt="${cat1.name}" th:title="${cat1.name}">-->
-<!--            <input th:type="image" th:name="catInfo" th:value="*{cat2.id}" th:src="'pictures/' + ${cat2.picture}"-->
-<!--                   width="120" height="100" th:alt="${cat2.name}" th:title="${cat2.name}">-->
+        <form sec:authorize="hasAnyRole('USER')" method="post">
+            <h5 align="centre">Выберите самого мимимишного котика</h5>
             <button th:type="text" th:name="catInfo" th:value="${cat1.id}">
                 <img th:src="'pictures/' + ${cat1.picture}" th:value="*{cat1.id}" width="120" height="100">
             </button>
             <button th:type="text" th:name="catInfo" th:value="${cat2.id}">
                 <img th:src="'pictures/' + ${cat2.picture}" th:value="*{cat2.id}" width="120" height="100">
             </button>
-<!--            <button th:type="text" th:name="catInfo" th:value="${queue}">очеред</button>-->
         </form>
-<!--        <form  method="POST" th:action="@{/mimimimetr/(cat=${cat1})/(queue=${queue})}">-->
-<!--            <input th:type="image"  th:src="'pictures/' + ${cat1.picture}" width="120" height="100" th:alt="${cat1.name}" th:title="${cat1.name}">-->
-<!--        </form>-->
-<!--        <form method="POST"  th:action="@{/mimimimetr/(cat=${cat2})/(queue=${queue})}">-->
-<!--            <input th:type="image" th:src="'pictures/' + ${cat2.picture}" width="120" height="100" th:alt="${cat2.name}" th:title="${cat2.name}">-->
-<!--        </form>-->
+
+        <form sec:authorize="isAnonymous()" th:action="@{/}">
+            <h5 align="centre">Авторизируйтесь или зарегистрируйтесь</h5>
+            <a th:href="@{/login}">Авторизация</a>
+            <a th:href="@{/registration}">Регистрация</a>
+        </form>
         </div>
 </body>
 </html>

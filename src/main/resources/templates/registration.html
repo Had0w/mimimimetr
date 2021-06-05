@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="../static/css/style.css" th:href="@{css/style.css}"/>
+    <link href="img/products-ico.ico" rel="shortcut icon" type="image/x-icon"/>
+</head>
+<body>
+<div  id="page-wrap">
+    <header>
+        <span id="left"><a th:href="@{/}">На главную</a></span>
+    </header>
+    <div>
+        <form method="post" th:action="@{/registration}" th:object="${user}">
+            <label for="username">username
+                <input id="username" type="text" th:field="*{username}" placeholder="username должен быть уникальным"/>
+            </label><br/>
+            <label for="password">password
+                <input id="password" type="text" th:field="*{password}" placeholder="пароль">
+            </label><br/>
+            <button type="submit">Зарегистрироваться</button>
+        </form>
+    </div>
+    <footer>
+    </footer>
+</div>
+</body>
+</html>

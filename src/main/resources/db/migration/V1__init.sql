@@ -2,8 +2,7 @@ CREATE TABLE cats (
     id serial PRIMARY KEY,
     name varchar(30),
     picture varchar(50),
-    popularity integer DEFAULT 0,
-    queue integer DEFAULT 1
+    popularity integer DEFAULT 0
 );
 
 INSERT INTO cats (name, picture) VALUES ('Куся', 'cat10.jpg'),
