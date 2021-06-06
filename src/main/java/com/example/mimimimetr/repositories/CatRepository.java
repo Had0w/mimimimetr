@@ -15,5 +15,8 @@ public interface CatRepository extends JpaRepository<Cat, Long> {
     @Query(value = "SELECT cat FROM Cat cat ORDER BY cat.id")
     List<Cat> findAllOrderById();
 
+    @Query(value = "SELECT COUNT(*) FROM cats", nativeQuery = true)
+    int getCountOfCat();
+
     Cat getById(long id);
 }

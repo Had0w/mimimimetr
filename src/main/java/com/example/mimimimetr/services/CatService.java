@@ -15,4 +15,6 @@ public interface CatService {
     List<Cat> findAllOrderById();
 
     Cat getCatById(long id);
+
+    int getCatCount();
 }

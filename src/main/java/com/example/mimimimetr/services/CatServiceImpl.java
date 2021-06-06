@@ -45,4 +45,9 @@ public class CatServiceImpl implements CatService{
     public Cat getCatById(long id) {
         return catRepository.findById(id).get();
     }
+
+    @Override
+    public int getCatCount() {
+        return catRepository.getCountOfCat();
+    }
 }

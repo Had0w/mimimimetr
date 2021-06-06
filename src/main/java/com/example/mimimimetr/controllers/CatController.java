@@ -111,9 +111,10 @@ public class CatController {
     /**
      * метод перемешивает порядок котов для каждого отдельного пользователя
      */
-    static String getOrderCat() {
+    public String getOrderCat() {
         List<Integer> orderCat = new ArrayList<>();
-        for (int i = 1; i <= 10; i++) {
+        int countOfCat = catService.getCatCount();
+        for (int i = 1; i <= countOfCat; i++) {
             orderCat.add(i);
         }
         Collections.shuffle(orderCat);
