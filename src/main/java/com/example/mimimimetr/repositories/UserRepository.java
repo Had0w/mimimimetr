@@ -19,8 +19,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "update User user set user.queue = :queue where user.username = :username")
     void setQueue(@Param("username") String username, @Param("queue") int queue);
 
-//    @Transactional
-//    @Modifying
-//    @Query(value = "update User user set user.catOrder = :catOrder where user.username = :username")
-//    void setOrder(@Param("username") String username, @Param("order") String catOrder);
+    @Transactional
+    @Modifying
+    @Query(value = "update User user set user.catOrder = :catOrder where user.username = :username")
+    void setOrder(@Param("username") String username, @Param("catOrder") String catOrder);
 }

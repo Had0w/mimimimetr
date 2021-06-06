@@ -94,7 +94,7 @@ public class CatController {
 
         String userName = principal.getName();
         userService.setQueue(userName, 0); //Очередность возвращается к 0
-//        userService.setOrder(userName, getOrderCat()); //Назначаем новый порядок котов
+        userService.setOrder(userName, getOrderCat()); //Назначаем новый порядок котов
 
         return "top10cats";
     }

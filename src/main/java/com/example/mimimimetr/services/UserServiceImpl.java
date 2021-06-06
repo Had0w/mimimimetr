@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void setOrder(String userName, String order) {
-//        userRepository.setOrder(userName, order);
+        userRepository.setOrder(userName, order);
     }
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthority(Collection<String> roles) {
