@@ -1,7 +1,7 @@
 package com.example.mimimimetr.services;
 
 import com.example.mimimimetr.entities.Cat;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-class CatServiceImplTest {
+public class CatServiceImplTest {
 
     private CatServiceImpl catService;
 
@@ -21,23 +21,23 @@ class CatServiceImplTest {
     }
 
     @Test
-    void findCatById() {
+    public void findCatById() {
         Cat cat = catService.findCatById(1);
         assertEquals(1, cat.getId());
     }
 
     @Test
-    void getTop10() {
+    public void getTop10() {
         List<Cat> top10 = catService.getTop10();
         assertEquals(10, top10.size());
     }
 
     @Test
-    void saveCat() {
+    public void saveCat() {
     }
 
     @Test
-    void findAllOrderById() {
+    public void findAllOrderById() {
         List<Cat> cats = catService.findAllOrderById();
         assertNotNull(cats);
         assertNotEquals(0, cats.size());
@@ -48,7 +48,7 @@ class CatServiceImplTest {
      * По логике программы котов должно всегда быть четное колличество
      */
     @Test
-    void getCatCount() {
+    public void getCatCount() {
         int count = catService.getCatCount();
         int actual = count % 2;
         int expexted = 0;
