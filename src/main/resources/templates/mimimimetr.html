@@ -6,7 +6,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Mimimimetr</title>
-    <link rel="stylesheet" href="style.css" th:href="@{style.css}"/>
 </head>
 <body>
 <header id="1">
@@ -17,13 +16,33 @@
         <form sec:authorize="hasAnyRole('USER')" method="post">
             <h5 align="centre">Выберите самого мимимишного котика</h5>
             <button th:type="text" th:name="catInfo" th:value="${cat1.id}">
-                <img th:src="'pictures/' + ${cat1.picture}" th:value="*{cat1.id}" width="120" height="100">
+                <img th:src="'pictures/' + ${cat1.picture}" th:value="*{cat1.id}"
+                     width="120" height="100" th:title="${cat1.name}">
             </button>
             <button th:type="text" th:name="catInfo" th:value="${cat2.id}">
-                <img th:src="'pictures/' + ${cat2.picture}" th:value="*{cat2.id}" width="120" height="100">
+                <img th:src="'pictures/' + ${cat2.picture}" th:value="*{cat2.id}"
+                     width="120" height="100" th:title="${cat2.name}">
             </button>
+            </br>
+            &nbsp
+            &nbsp
+            &nbsp
+            &nbsp
+            &nbsp
+            <button th:type="text" th:name="catInfo" th:value="${cat1.id}" th:text="${cat1.name}"></button>
+            &nbsp
+            &nbsp
+            &nbsp
+            &nbsp
+            &nbsp
+            &nbsp
+            &nbsp
+            &nbsp
+            &nbsp
+            &nbsp
+            &nbsp
+            <button th:type="text" th:name="catInfo" th:value="${cat2.id}" th:text="${cat2.name}"></button>
         </form>
-
         <form sec:authorize="isAnonymous()" th:action="@{/}">
             <h5 align="centre">Авторизируйтесь или зарегистрируйтесь</h5>
             <a th:href="@{/login}">Авторизация</a>

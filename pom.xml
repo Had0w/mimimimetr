@@ -77,11 +77,11 @@
 				<artifactId>flyway-maven-plugin</artifactId>
 				<version>5.2.4</version>
 				<configuration>
-					<url>jdbc:postgresql://localhost:5432/cats?currentSchema=public</url>
+					<url>jdbc:postgresql://localhost:5432/postgres?currentSchema=cats</url>
 					<user>postgres</user>
 					<password>11Kosmea9</password>
 					<schemas>
-						<schema>public</schema>
+						<schema>cats</schema>
 					</schemas>
 				</configuration>
 			</plugin>

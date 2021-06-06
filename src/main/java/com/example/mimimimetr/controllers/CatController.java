@@ -59,7 +59,6 @@ public class CatController {
 
     @PostMapping
     public String putCat(Model model, Principal principal, @RequestBody String catInfo) {
-        System.out.println(catInfo);
         String[] strings = catInfo.split("=");
         if(strings[1] != null) {  //выбранный в прошлой иттерации кот увеличивает свою популярность
             Cat cat = catService.findCatById(Long.parseLong(strings[1]));

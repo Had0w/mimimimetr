@@ -2,7 +2,6 @@ package com.example.mimimimetr.entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 
 @Entity
