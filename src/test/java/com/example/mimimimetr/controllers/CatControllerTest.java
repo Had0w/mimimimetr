@@ -4,7 +4,6 @@ import com.example.mimimimetr.entities.Cat;
 import com.example.mimimimetr.entities.User;
 import com.example.mimimimetr.services.CatServiceImpl;
 import com.example.mimimimetr.services.UserServiceImpl;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;;
