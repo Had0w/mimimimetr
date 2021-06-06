@@ -18,15 +18,6 @@ import java.util.List;
 public class CatController {
     private CatServiceImpl catService;
     private UserServiceImpl userService;
-    //очередность котов
-    private static List<Integer> orderCat = new ArrayList<>();
-
-    static {
-
-        for (int i = 1; i <= 10; i++) {
-            orderCat.add(i);
-        }
-    }
 
     @Autowired
     public void setCatService(CatServiceImpl catService) {
@@ -57,6 +48,10 @@ public class CatController {
         Cat cat1 = catService.getCatById(Long.parseLong(order[queue]));
         Cat cat2 = catService.getCatById(Long.parseLong(order[queue + 1]));;
 
+        queue += 2;
+
+        userService.setQueue(userName, queue);
+
         model.addAttribute("cat1", cat1);
         model.addAttribute("cat2", cat2);
         return "mimimimetr";
@@ -81,9 +76,7 @@ public class CatController {
         if (queue >= cats.size() - 1) {
             return to10Cats(model, principal);  //если все коты показаны, то уходим на страницу финиш
         }
-        queue += 2;
 
-        userService.setQueue(userName, queue);
         return getCats(model, principal);
     }
 
@@ -116,9 +109,13 @@ public class CatController {
     }
 
     /**
-     * метод перемешивает порядок котов для каждого отдеьного пользователя
+     * метод перемешивает порядок котов для каждого отдельного пользователя
      */
     static String getOrderCat() {
+        List<Integer> orderCat = new ArrayList<>();
+        for (int i = 1; i <= 10; i++) {
+            orderCat.add(i);
+        }
         Collections.shuffle(orderCat);
         StringBuilder stringBuilder = new StringBuilder();
         for (Integer i : orderCat) {
