@@ -19,4 +19,10 @@ public class Cat {
     String picture;
     @Column(name = "popularity")
     int popularity;
+
+    public Cat(String name, String picture, int popularity) {
+        this.name = name;
+        this.picture = picture;
+        this.popularity = popularity;
+    }
 }

@@ -42,7 +42,7 @@ public class CatController {
         String[] order = user.getCatOrder().split(" ");
         
         if (queue >= cats.size() - 1) {
-            return to10Cats(model, principal);  //если все коты показаны, то уходим на страницу финиш
+            return getTop10Cats(model, principal);  //если все коты показаны, то уходим на страницу финиш
         }
         
         Cat cat1 = catService.getCatById(Long.parseLong(order[queue]));
@@ -73,14 +73,14 @@ public class CatController {
         int queue = user.getQueue();
 
         if (queue >= cats.size() - 1) {
-            return to10Cats(model, principal);  //если все коты показаны, то уходим на страницу финиш
+            return getTop10Cats(model, principal);  //если все коты показаны, то уходим на страницу финиш
         }
 
         return getCats(model, principal);
     }
 
     @GetMapping("top10cats")
-    public String to10Cats(Model model, Principal principal) {
+    public String getTop10Cats(Model model, Principal principal) {
         List<Cat> top10Cats = catService.getTop10();
         model.addAttribute("top10Cats", top10Cats);
 

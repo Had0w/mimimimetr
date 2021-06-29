@@ -4,13 +4,20 @@ import com.example.mimimimetr.entities.Cat;
 import com.example.mimimimetr.entities.User;
 import com.example.mimimimetr.services.CatServiceImpl;
 import com.example.mimimimetr.services.UserServiceImpl;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
+
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,17 +27,35 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 public class CatControllerTest {
 
-    @MockBean
-    UserServiceImpl userService;
+    @InjectMocks
+    private CatController catController;
 
-    @MockBean
-    CatServiceImpl catService;
 
-    @MockBean
-    Model model;
+    private MockMvc mockMvc;
 
-    @MockBean
-    Principal principal;
+    @Mock
+    private UserServiceImpl userService;
+
+    @Mock
+    private CatServiceImpl catService;
+
+    @Mock
+    private Model model;
+
+    @Mock
+    private Principal principal;
+
+    @Before
+    public void setUp() {
+        List<Cat> cats = new ArrayList<>();
+        cats.add(new Cat());
+        cats.add(new Cat());
+        Mockito.when(catService.findAllOrderById()).thenReturn(cats);
+        User user = new User();
+        user.setCatOrder("1 2 3 4");
+        Mockito.when(userService.findUserByUsername(Mockito.any())).thenReturn(user);
+        mockMvc = MockMvcBuilders.standaloneSetup(catController).build();
+    }
 
     @Test
     public void getCats() {
@@ -57,6 +82,16 @@ public class CatControllerTest {
         catController.setUserService(userService);
         String actual = catController.getCats(model, principal);
         assertEquals("mimimimetr", actual);
+    }
+
+    @Test
+    public void getCatsController() throws Exception {
+        Mockito.when(catController.getCats(model, principal)).thenReturn("mimimimetr");
+        mockMvc.perform(MockMvcRequestBuilders.get("/mimimimetr"))
+                .andExpect(MockMvcResultMatchers.status().is(404))
+                .andExpect(MockMvcResultMatchers.forwardedUrl("templates\\mimimimetr.html"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("cat1", "cat2"));
+        Mockito.verify(catService).findAllOrderById();
     }
 
     @Test
@@ -115,8 +150,13 @@ public class CatControllerTest {
         CatController catController = new CatController();
         catController.setCatService(catService);
         catController.setUserService(userService);
-        String actual = catController.to10Cats(model, principal);
+        String actual = catController.getTop10Cats(model, principal);
         assertEquals("top10cats", actual);
+    }
+
+    @Test
+    public void top10CatsController() {
+        Mockito.when(catController.getTop10Cats(model, principal)).thenReturn("/top10Cats");
     }
 
     @Test
