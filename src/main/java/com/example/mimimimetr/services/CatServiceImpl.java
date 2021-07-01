@@ -22,7 +22,7 @@ public class CatServiceImpl implements CatService{
 
     @Override
     public Cat findCatById(long id) {
-        return catRepository.findById(id).get();
+        return catRepository.getOne(id);
     }
 
     @Override
