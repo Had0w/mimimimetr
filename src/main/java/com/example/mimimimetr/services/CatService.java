@@ -4,6 +4,7 @@ import com.example.mimimimetr.entities.Cat;
 import java.util.List;
 
 public interface CatService {
+
     List<Cat> getAllCat();
 
     Cat findCatById(long id);

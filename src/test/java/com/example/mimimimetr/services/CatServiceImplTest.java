@@ -1,58 +1,96 @@
 package com.example.mimimimetr.services;
 
 import com.example.mimimimetr.entities.Cat;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-import java.util.List;
-import static org.junit.jupiter.api.Assertions.*;
+import com.example.mimimimetr.repositories.CatRepository;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class CatServiceImplTest {
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
 
-    private CatServiceImpl catService;
+@ExtendWith(MockitoExtension.class)
+class CatServiceImplTest {
 
-    @Autowired
-    public void setCatRepository(CatServiceImpl catService) {
-        this.catService = catService;
+    @Mock
+    private CatRepository catRepository;
+    private CatServiceImpl underTest;
+
+    @BeforeEach
+    public void setUp() {
+        underTest = new CatServiceImpl();
+        underTest.setCatRepository(catRepository);
     }
 
     @Test
-    public void findCatById() {
-        Cat cat = catService.findCatById(1);
-        assertEquals(1, cat.getId());
+    void getAllCat() {
+        //when
+        underTest.getAllCat();
+        //then
+        verify(catRepository).findAll();
     }
 
     @Test
-    public void getTop10() {
-        List<Cat> top10 = catService.getTop10();
-        assertEquals(10, top10.size());
+    void findCatById() {
+        //given
+        long id = 1L;
+        //when
+        underTest.findCatById(id);
+        //then
+        ArgumentCaptor<Long> idArgumentCaptor = ArgumentCaptor.forClass(Long.class);
+        verify(catRepository).getOne(idArgumentCaptor.capture());
+
+        long actualId = idArgumentCaptor.getValue();
+
+        assertThat(id).isEqualTo(actualId);
     }
 
     @Test
-    public void saveCat() {
+    void getTop10() {
+        //when
+        underTest.getTop10();
+        //then
+        verify(catRepository).findByOrderByPopularityDesc();
     }
 
     @Test
-    public void findAllOrderById() {
-        List<Cat> cats = catService.findAllOrderById();
-        assertNotNull(cats);
-        assertNotEquals(0, cats.size());
-        assertEquals(0, cats.size()%2);
+    void saveCat() {
+        //given
+        Cat cat = new Cat("Филя", "1", 10);
+        //when
+        underTest.saveCat(cat);
+        //then
+        ArgumentCaptor<Cat> catArgumentCaptor = ArgumentCaptor.forClass(Cat.class);
+        verify(catRepository).save(catArgumentCaptor.capture());
+
+        Cat capturedCat = catArgumentCaptor.getValue();
+
+        assertThat(capturedCat).isEqualTo(cat);
+     }
+
+    @Test
+    void findAllOrderById() {
+        //when
+        underTest.findAllOrderById();
+        //then
+        verify(catRepository).findAllOrderById();
     }
 
-    /**
-     * По логике программы котов должно всегда быть четное колличество
-     */
     @Test
-    public void getCatCount() {
-        int count = catService.getCatCount();
-        int actual = count % 2;
-        int expexted = 0;
-        assertEquals(expexted, actual);
-        assertNotEquals(0, count);
+    void getCatById() {
+        //when
+        underTest.getCatById(1);
+        //then
+        verify(catRepository).getOne(1L);
+    }
+
+    @Test
+    void getCatCount() {
+        //when
+        underTest.getCatCount();
+        //then
+        verify(catRepository).getCountOfCat();
     }
 }

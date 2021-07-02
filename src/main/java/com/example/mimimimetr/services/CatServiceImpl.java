@@ -28,7 +28,12 @@ public class CatServiceImpl implements CatService{
     @Override
     public List<Cat> getTop10() {
         List<Cat> cats = catRepository.findByOrderByPopularityDesc();
-        return cats.subList(0, 10);
+        if(cats.size() > 10) {
+            return cats.subList(0, 10);
+        }
+        else {
+            return cats;
+        }
     }
 
     @Override
@@ -43,7 +48,7 @@ public class CatServiceImpl implements CatService{
 
     @Override
     public Cat getCatById(long id) {
-        return catRepository.findById(id).get();
+        return catRepository.getOne(id);
     }
 
     @Override
