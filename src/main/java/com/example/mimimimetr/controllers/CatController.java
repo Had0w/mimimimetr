@@ -7,6 +7,7 @@ import com.example.mimimimetr.services.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
@@ -58,6 +59,7 @@ public class CatController {
     }
 
     @PostMapping
+    @Transactional
     public String putCat(Model model, Principal principal, @RequestBody String catInfo) {
         String[] strings = catInfo.split("=");
         if(strings[1] != null) {  //выбранный в прошлой иттерации кот увеличивает свою популярность
