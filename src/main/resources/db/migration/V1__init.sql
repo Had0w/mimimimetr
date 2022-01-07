@@ -1,6 +1,4 @@
-CREATE schema IF NOT EXISTS cats;
-
-CREATE TABLE cats (
+CREATE TABLE IF NOT EXISTS cats (
     id serial PRIMARY KEY,
     name varchar(30),
     picture varchar(50),

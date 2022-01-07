@@ -86,11 +86,11 @@
 				<artifactId>flyway-maven-plugin</artifactId>
 				<version>5.2.4</version>
 				<configuration>
-					<url>jdbc:postgresql://localhost:5432/postgres?currentSchema=cats</url>
+					<url>jdbc:postgresql://localhost:5433/mimimimetr</url>
 					<user>postgres</user>
-					<password>11Kosmea9</password>
+					<password>postgres</password>
 					<schemas>
-						<schema>cats</schema>
+						<schema>public</schema>
 					</schemas>
 				</configuration>
 			</plugin>
